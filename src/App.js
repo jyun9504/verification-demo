@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Switch, Route, useLocation, Redirect } from 'react-router-dom'
+import Layout from './components/Layout'
+import LoginContainer from './containers/LoginContainer'
+import VerificationContainer from './containers/VerificationContainer'
+import ReceiptsContainer from './containers/ReceiptsContainer'
+import ConflictContainer from './containers/ConflictContainer'
+import BlockchainContainer from './containers/BlockchainContainer'
+import PrivateRoute from './routes/PrivateRoute'
 
 function App() {
+  const location = useLocation()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Layout>
+        <Switch location={location}>
+          <Route exact path="/"><LoginContainer /></Route>
+          <PrivateRoute exact path="/verification"><VerificationContainer /></PrivateRoute>
+          <PrivateRoute exact path="/receipts"><ReceiptsContainer /></PrivateRoute>
+          <PrivateRoute exact path="/conflict/:hash"><ConflictContainer /></PrivateRoute>
+          <PrivateRoute exact path="/blockchain"><BlockchainContainer /></PrivateRoute>
+          <Redirect to='/verification' />
+        </Switch>
+      </Layout>
+    </React.Fragment>
   );
 }
 
-export default App;
+export default App
