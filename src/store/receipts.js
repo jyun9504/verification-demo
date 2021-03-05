@@ -1,12 +1,14 @@
 import {
   SET_RECEIPTS,
   SET_CONFLICTS,
+  SET_TARGETBANK,
 } from '../constants/actionTypes'
 
 
 const initialState = {
   receipts: [],
   conflicts: [],
+  targetBank: null,
   banks: [
     {id: 0, name: 'All', num_of_receipts: 6},
     {id: 1, name: 'AA銀行', num_of_receipts: 5},
@@ -20,6 +22,11 @@ const receipts = (state=initialState, action={}) => {
       return {
         ...state,
         receipts: action.payload
+      };
+    case SET_TARGETBANK:
+      return {
+        ...state,
+        targetBank: action.payload
       };
     case SET_CONFLICTS:
       return {

@@ -13,6 +13,7 @@ import ReceiptsDatePicker from '../../components/Receipts/ReceiptsDatePicker'
 import SelectedDaysText from '../../components/Receipts/SelectedDaysText'
 import IconButton from '@material-ui/core/IconButton'
 import { FaRegEye } from "react-icons/fa"
+import { RiEyeCloseLine } from "react-icons/ri"
 import ReceiptsList from '../../components/Receipts/ReceiptsList'
 
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle.js"
@@ -23,6 +24,7 @@ const mapStateToProps = state => {
   return {
     banks: state.receipts.banks,
     receipts: state.receipts.receipts,
+    targetBank: state.receipts.targetBank,
   }
 }
 
@@ -35,7 +37,7 @@ const mapDispatchToProps = (dispatch) => {
 function ReceiptsContainer (props) {
   const classes = useStyles()
   const history = useHistory()
-  const { banks, receipts, getReceipts } = props
+  const { banks, receipts, getReceipts, targetBank } = props
   const [selectedDays, setSelectedDays] = useState([])
   const [isFilter, setIsFilter] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
@@ -74,7 +76,7 @@ function ReceiptsContainer (props) {
         el[0],
         el[1],
         <IconButton size="small" aria-label="delete" onClick={() => handleGetReceipts(el[2])}>
-          <FaRegEye />
+          {targetBank === el[2] ? <FaRegEye /> : <RiEyeCloseLine />}
         </IconButton>
       ]
     })
@@ -109,7 +111,7 @@ function ReceiptsContainer (props) {
 	return (
 		<React.Fragment>
       <GridContainer>
-        <GridItem xs={12} sm={12} md={6} lg={4}>
+        <GridItem xs={12} sm={12} md={12} lg={4}>
 					<Card>
             <CardHeader color="warning">
               <h2 className={classes.cardTitleWhite}>Bank List</h2>
@@ -135,7 +137,7 @@ function ReceiptsContainer (props) {
             </CardBody>
           </Card>
 				</GridItem>
-        <GridItem xs={12} sm={12} md={6} lg={8}>
+        <GridItem xs={12} sm={12} md={12} lg={8}>
         {
           receiptsTableData[0] &&
           <Card>
