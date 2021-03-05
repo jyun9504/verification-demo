@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 135,
     borderRadius: 0,
-    marginBottom: 20,
+    marginTop: 15,
+    height: 120,
 
     [theme.breakpoints.down('sm')]: {
       width: '100%',

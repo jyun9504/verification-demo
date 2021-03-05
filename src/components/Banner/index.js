@@ -28,7 +28,7 @@ const Banner = (props) => {
   const handleTitle = (pathName) => {
     switch (pathName.split('/')[1]) {
       case 'blockchain': 
-        return "節點管理"
+        return "節點狀態"
       case 'receipts':
         return "發票管理"
       case 'verification':

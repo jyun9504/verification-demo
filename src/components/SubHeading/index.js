@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
   heading: {
     color: theme.palette.primary.main,
-    margin: '0 0 15px 15px',
+    margin: 20,
   }
 }))
 

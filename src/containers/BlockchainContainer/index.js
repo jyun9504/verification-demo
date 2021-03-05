@@ -10,20 +10,18 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { AiOutlineNodeIndex } from "react-icons/ai"
 import { BiCube, BiHash } from 'react-icons/bi'
+import BlockchainList from '../../components/Blockchain/BlockchainList'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
     float: 'right'
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
   icon: {
     color: theme.palette.grey.dark,
     fontSize: 18,
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
   },
 }))
 
@@ -34,6 +32,14 @@ export default function BlockchainContainer () {
   const handleChange = (event) => {
     setNode(event.target.value)
   }
+
+  const tableData = [
+    [5, '2021-03-05 14:00:00', '0x08716236'],
+    [4, '2021-03-04 12:00:00', '0x77815838'],
+    [3, '2021-03-03 12:00:00', '0x77815838'],
+    [2, '2021-03-02 12:00:00', '0x77815838'],
+    [1, '2021-03-01 12:00:00', '0x77815838'],
+  ]
 
 	return (
 		<React.Fragment>
@@ -72,10 +78,12 @@ export default function BlockchainContainer () {
             content="4"
           />
 				</GridItem>
+        <GridItem xs={12} sm={12} md={6} lg={8}>
+          <BlockchainList
+            tableData={tableData}
+          />
+        </GridItem>
 			</GridContainer>
-      <GridItem xs={12} sm={12} md={6} lg={6}>
-
-      </GridItem>
 		</React.Fragment>
 	)
 }
