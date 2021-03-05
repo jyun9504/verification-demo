@@ -1,16 +1,16 @@
 import {
   SET_RECEIPTS,
+  SET_CONFLICTS,
 } from '../constants/actionTypes'
 
 
 const initialState = {
   receipts: [],
+  conflicts: [],
   banks: [
+    {id: 0, name: 'All', num_of_receipts: 6},
     {id: 1, name: 'AA銀行', num_of_receipts: 5},
-    {id: 2, name: 'BB銀行', num_of_receipts: 0},
-    {id: 3, name: 'CC銀行', num_of_receipts: 0},
-    {id: 4, name: 'DD銀行', num_of_receipts: 0},
-    {id: 0, name: 'EE銀行', num_of_receipts: 0},
+    {id: 2, name: 'BB銀行', num_of_receipts: 1},
   ]
 }
 
@@ -20,6 +20,11 @@ const receipts = (state=initialState, action={}) => {
       return {
         ...state,
         receipts: action.payload
+      };
+    case SET_CONFLICTS:
+      return {
+        ...state,
+        conflicts: action.payload
       };
     default:
       return state;

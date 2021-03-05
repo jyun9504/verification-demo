@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { verifiReceipt } from '../../actions/receipts'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles"
 import GridItem from "../../components/Grid/GridItem"
@@ -7,19 +9,43 @@ import Card from "../../components/Card/Card"
 import CardHeader from "../../components/Card/CardHeader"
 import CardBody from "../../components/Card/CardBody"
 import VerificatoinSearch from '../../components/Verification/VerificationSearch'
+import AlertBar from '../../components/AlertBar'
 
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle.js"
 const useStyles = makeStyles(styles)
 
-export default function VerificationContainer () {
+const mapStateToProps = state => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    verifiReceipt: (payload) => dispatch(verifiReceipt(payload)),
+  }
+}
+
+function VerificationContainer (props) {
   const classes = useStyles()
   const history = useHistory()
-  const [taxIDNum, setTaxIDNum] = useState('77815839')
+  const { verifiReceipt } = props
+  const [taxIDNum, setTaxIDNum] = useState('77815838')
   const [receiptNum, setReceiptNum] = useState('12345678')
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
 
   const onVerification = (e) => {
     e.preventDefault()
-    history.push('/conflict/0x77815838123456878')
+    const payload = {
+      taxIDNum: taxIDNum,
+      receiptNum: receiptNum,
+    }
+    verifiReceipt(payload)
+      .then(() => {
+        history.push('/conflict/0x77815838')
+      })
+      .catch(() => {
+        setIsAlertOpen(true)
+      })
   }
 
 	return (
@@ -38,6 +64,11 @@ export default function VerificationContainer () {
                 receiptNum={receiptNum}
                 setReceiptNum={setReceiptNum}
               />
+              <AlertBar
+                errorText="查無衝突發票"
+                isAlertOpen={isAlertOpen}
+                setIsAlertOpen={setIsAlertOpen}
+              />
             </CardBody>
           </Card>
 				</GridItem>
@@ -45,3 +76,5 @@ export default function VerificationContainer () {
 		</React.Fragment>
 	)
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(VerificationContainer)

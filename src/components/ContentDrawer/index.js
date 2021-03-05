@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
-import { TiThMenuOutline } from 'react-icons/ti'
+import { FiMenu } from 'react-icons/fi'
 import Banner from '../Banner'
 
 const useStyles = makeStyles((theme) => ({
@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme) => ({
     width: 26,
   },
   linkIcon: {
-    width: 24,
-    height: 24,
+    width: 25,
+    height: 25,
     color: theme.palette.secondary.main,
   },
 }))
@@ -83,7 +83,7 @@ const ContentDrawer = (props) => {
         className={classes.iconButton}
         onClick={handleDrawerOpen}
       >
-        { <TiThMenuOutline className={classes.linkIcon} /> }
+        { <FiMenu className={classes.linkIcon} /> }
       </IconButton>
       <Paper
         className={
