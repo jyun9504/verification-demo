@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { getReceipts } from '../../actions/receipts'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles"
 import GridItem from "../../components/Grid/GridItem"
@@ -17,9 +19,23 @@ import styles from "../../assets/jss/material-dashboard-react/views/dashboardSty
 
 const useStyles = makeStyles(styles)
 
-export default function ReceiptsContainer () {
+const mapStateToProps = state => {
+  return {
+    banks: state.receipts.banks,
+    receipts: state.receipts.receipts,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getReceipts: (payload) => dispatch(getReceipts(payload)),
+  }
+}
+
+function ReceiptsContainer (props) {
   const classes = useStyles()
   const history = useHistory()
+  const { banks, receipts, getReceipts } = props
   const [selectedDays, setSelectedDays] = useState([])
   const [isFilter, setIsFilter] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
@@ -32,37 +48,63 @@ export default function ReceiptsContainer () {
     setIsFilter(true)
     setAnchorEl(false)
   }
-  const tableData = [
-    ["AA銀行", "5"],
-    ["BB銀行", "0"],
-    ["CC銀行", "0"],
-    ["DD銀行", "0"],
-    ["EE銀行", "0"],
-  ]
-  const handleTableData = () => {
-    return tableData.map((el) => {
+
+  const handleGetReceipts = (id) => {
+    getReceipts(id)
+  }
+
+  const [bankTableData, setBankTableData] = useState([])
+  useEffect(() => {
+    if (banks[0]) {
+      setBankTableData(
+        banks.map((el) => {
+          return [
+            el.name,
+            el.num_of_receipts, 
+            el.id,
+          ]
+        })
+      )
+    }
+  }, [banks])
+
+  const handleBankTableData = () => {
+    return bankTableData.map((el) => {
       return [
         el[0],
-        el[1], 
-        <IconButton size="small" aria-label="delete">
+        el[1],
+        <IconButton size="small" aria-label="delete" onClick={() => handleGetReceipts(el[2])}>
           <FaRegEye />
         </IconButton>
       ]
     })
   }
 
-
-  const receiptsTableData = [
-    [5,'77815839','123456879', '0x08716236', '2021-03-05 14:00', false],
-    [4,'77815838','123456878', '0x77815838', '2021-03-04 12:00', true],
-    [3,'77815838','123456878', '0x77815838', '2021-03-03 12:00', true],
-    [2,'77815838','123456878', '0x77815838', '2021-03-02 12:00', true],
-    [1,'77815838','123456878', '0x77815838', '2021-03-01 12:00', true],
-  ]
-
   const viewReceiptConflict = (hash) => {
     history.push(`/conflict/${hash}`)
   }
+
+  const [receiptsTableData, setReceiptsTableData] = useState([])
+  useEffect(() => {
+    if (receipts[0]) {
+      setReceiptsTableData(
+        receipts.map((el) => {
+          return [
+            el.id,
+            el.tax_id_num,
+            el.receipt_num,
+            el.hash,
+            el.updated_time,
+            receipts.filter((item) => {
+              return item.id !== el.id && item.hash === el.hash
+            }),
+          ]
+        })
+      )
+    } else {
+      setReceiptsTableData([])
+    }
+  }, [receipts])
 
 	return (
 		<React.Fragment>
@@ -88,12 +130,14 @@ export default function ReceiptsContainer () {
               <Table
                 tableHeaderColor="warning"
                 tableHead={["Bank", "Number of receipts", "View"]}
-                tableData={handleTableData()}
+                tableData={handleBankTableData()}
               />
             </CardBody>
           </Card>
 				</GridItem>
         <GridItem xs={12} sm={12} md={6} lg={8}>
+        {
+          receiptsTableData[0] &&
           <Card>
             <CardHeader color="warning">
               <h2 className={classes.cardTitleWhite}>Receipt List</h2>
@@ -105,8 +149,11 @@ export default function ReceiptsContainer () {
               />
             </CardBody>
           </Card>
+        }   
         </GridItem>
 			</GridContainer>
 		</React.Fragment>
 	)
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReceiptsContainer)

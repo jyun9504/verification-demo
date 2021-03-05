@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: theme.palette.grey.dark,
     fontSize: 18,
-    width: 40,
-    height: 40,
+    width: 42,
+    height: 42,
   },
 }))
 

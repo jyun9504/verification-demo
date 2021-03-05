@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
@@ -55,6 +55,11 @@ const Navbar = (props) => {
     }
   }
 
+  const [isLoging, setIsLogin] = useState(false)
+  useEffect(() => {
+    setIsLogin(isAuth)
+  }, [isAuth])
+
   return (
     <nav className={classes.root}>
       <div className={classes.heading}>
@@ -65,7 +70,7 @@ const Navbar = (props) => {
       <Divider />
       <List>
         {
-          !isAuth &&
+          !isLoging &&
             <NavbarLink
               activeOnlyWhenExact={true}
               to="/"
@@ -75,7 +80,7 @@ const Navbar = (props) => {
             </NavbarLink>
         }
         {
-          isAuth &&
+          isLoging &&
           linkArr.map((el) => {
               return (
                 <NavbarLink
@@ -90,7 +95,7 @@ const Navbar = (props) => {
             })
         }
         {
-          isAuth &&
+          isLoging &&
           <NavbarBtn
             activeOnlyWhenExact={true}
             label="登出"

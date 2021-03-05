@@ -5,7 +5,7 @@ import {
 
 
 const initialState = {
-
+  isAuth: !!localStorage.getItem('token')
 }
 
 const auth = (state=initialState, action={}) => {
@@ -13,10 +13,12 @@ const auth = (state=initialState, action={}) => {
     case LOGIN:
       return {
         ...state,
+        isAuth: true
       };
     case LOGOUT:
       return {
         ...state,
+        isAuth: false
       };
     default:
       return state;

@@ -30,7 +30,7 @@ const ReceiptsList = (props) => {
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            tableMeta.rowData[5] ?
+            tableMeta.rowData[5].length !== 0 ?
             <ReceiptConflictBtn viewReceiptConflict={viewReceiptConflict} tableMeta={tableMeta} />
             :
             '無重複'
