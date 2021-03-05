@@ -27,7 +27,7 @@ function PopOver(props) {
 
   return (
     <div>
-      <Button aria-describedby={id} size="small" variant="outlined" color="inherit" onClick={handleClick}>
+      <Button aria-describedby={id} size="small" variant="outlined" color="secondary" onClick={handleClick}>
         {btnText}
       </Button>
       <Popover

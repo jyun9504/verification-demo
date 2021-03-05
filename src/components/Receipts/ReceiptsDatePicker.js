@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root:{
     display: 'flex',
     alignItems: 'center',
-    marginTop: 5,
+    marginLeft: 8,
   },
   popOverContainer: {
     display: 'flex',

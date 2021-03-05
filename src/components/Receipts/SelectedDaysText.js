@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
   daysText: {
-    color: theme.palette.secondary.main,
-    margin: 10,
+    color: theme.palette.primary.main,
+    margin: '20px 0 0 8px',
   },
 }))
 
@@ -19,13 +19,19 @@ const SelectedDaysText = (props) => {
     <div className={classes.root}>
       {selectedDays.length === 7 && isFilter ? (
         <Typography className={classes.daysText} variant="body1">
-          {moment(selectedDays[0]).format('YYYY-MM-DD')}
-          {' to '}
-          {moment(selectedDays[6]).format('YYYY-MM-DD')}
+          {moment(selectedDays[0]).format('YYYY')}{' / '}
+          {moment(selectedDays[0]).format('MM')}{' / '}
+          {moment(selectedDays[0]).format('DD')}
+          {' ~ '}
+          {moment(selectedDays[6]).format('YYYY')}{' / '}
+          {moment(selectedDays[6]).format('MM')}{' / '}
+          {moment(selectedDays[6]).format('DD')}
         </Typography>)
       : (
         <Typography className={classes.daysText} variant="body1">
-          {moment(new Date()).format('YYYY-MM')}
+          {moment(new Date()).format('YYYY')}
+          {' / '}
+          {moment(new Date()).format('MM')}
         </Typography>
       )}
     </div>

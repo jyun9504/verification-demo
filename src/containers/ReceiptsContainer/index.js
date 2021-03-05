@@ -115,6 +115,8 @@ function ReceiptsContainer (props) {
 					<Card>
             <CardHeader color="warning">
               <h2 className={classes.cardTitleWhite}>Bank List</h2>
+            </CardHeader>
+            <CardBody>
               <ReceiptsDatePicker
                 handleSelectedDays={handleSelectedDays}
                 selectedDays={selectedDays}
@@ -123,8 +125,6 @@ function ReceiptsContainer (props) {
                 setAnchorEl={setAnchorEl}
                 isFilter={isFilter}
               />
-            </CardHeader>
-            <CardBody>
               <SelectedDaysText
                 selectedDays={selectedDays}
                 isFilter={isFilter}
