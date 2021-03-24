@@ -14,6 +14,5 @@ if (process.env.REACT_APP_VERSION) {
   apiUrl += process.env.REACT_APP_VERSION
 }
 
-// export const API_URL = 'https://fd9b1fa8eb11.ngrok.io/api/v1'
 export const API_URL = apiUrl
 export default API_URL

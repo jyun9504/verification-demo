@@ -1,10 +1,30 @@
-# Getting Started with Create React App
+# 風險聯防區塊鏈後台網頁ＵＩ
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 開發環境：  
 
-## Available Scripts
+* 語言：JavaScript  
+* JS 框架： React  
+  - https://reactjs.org/  
 
-In the project directory, you can run:
+* 狀態管理：Redux  
+  - https://redux.js.org/introduction/getting-started  
+
+* 樣式框架：Material UI  
+  - https://material-ui.com/  
+  - style 使用 Material UI 內建 CSS-IN-JS  
+
+* 使用 Create React App 官方快速安裝套件搭建  
+  官方文件皆有詳細操作說明  
+  - https://create-react-app.dev/docs/getting-started  
+
+## 第三方套件：  
+* mui-datatables：表格套件  
+  - https://github.com/gregnb/mui-datatables  
+
+* react-icons：ICON 套件  
+  - https://react-icons.github.io/react-icons/  
+
+## npm 指令：
 
 ### `npm install`
 
